@@ -1,0 +1,26 @@
+GET http://localhost:5159/games
+
+###
+GET http://localhost:5159/games/game05
+
+###
+POST http://localhost:5159/games
+Content-Type: application/json
+
+{
+  "name": "The Legend of Zelda",
+  "genre": "Action-Adventure",
+  "price": 59.99,
+  "releaseDate": "1986-02-21"
+}
+
+###
+PUT http://localhost:5159/games/game02
+Content-Type: application/json
+
+{
+  "name": "The Legend of Myth"
+}
+
+###
+DELETE http://localhost:5159/games/game02
