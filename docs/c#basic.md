@@ -154,3 +154,46 @@ int number = int.Parse(s);
 ```csharp
 string s = number.ToString();
 ```
+
+
+## static class & extension method 
+### static class 
+Static class is a class that cannot create an instance from this 
+
+**Syntax**: `public static ClassName()`
+
+```csharp
+public static GameEndpoints 
+{
+    private static readonly string Name = "MMM"; 
+}
+```
+
+In the static class, all things have to define in static way, including fields and methods. 
+
+### extension method 
+It lets you to create a method that lets instance of another class uses. 
+
+For example: 
+```csharp
+public static GameEndpoints 
+{
+    private static readonly string Name = "MMM"; 
+    public static MapGameEndpoints(this WebApplication web) 
+    {
+        ... 
+        //Something write here
+    }
+}
+```
+
+In another file, we can write: 
+```csharp
+web.MapGameEndpoints() 
+```
+
+**Notice 1**: You can only have 1 this parameter, and it must be the first parameter
+
+**Notice 2**: Extension method must be static.
+
+
