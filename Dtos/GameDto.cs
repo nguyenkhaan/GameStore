@@ -10,6 +10,7 @@ public record GameDto
     public string Genre { get; set; }
     public Decimal Price { get; set; }
     public DateOnly ReleaseDate { get; set; }
+    public GameDto() { } // Phai cung cap cai nay, neu khong thi ben kia chung ta se khong tyhe dung cu phap gan { } 
     public GameDto(string ID, string Name, string Genre, Decimal Price, DateOnly ReleaseDate)
     {
         this.ID = ID;

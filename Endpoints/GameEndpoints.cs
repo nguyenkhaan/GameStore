@@ -1,3 +1,4 @@
+using GameStore.Data;
 using GameStore.Dtos;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ public static class GameEndpoints
         {
             Name = "One Piece", Genre = "Adventure", Price = 19.99M, ReleaseDate = new(2009, 12, 12) 
         };
-        group.MapPost("", (CreateGameDto newGame) =>
+        group.MapPost("", (CreateGameDto newGame , GameStoreContext dbContext) =>
         {
             GameDto game = new(
                 "game04", newGame.Name, newGame.Genre, newGame.Price, newGame.ReleaseDate

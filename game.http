@@ -1,7 +1,7 @@
 GET http://localhost:5159/api/games
 
 ###
-GET http://localhost:5159/api/games/game01
+GET http://localhost:5159/api/games/game01/maybe
 
 ###
 POST http://localhost:5159/api/games
@@ -10,7 +10,7 @@ Content-Type: application/json
 {
   "name": "AAA",
   "genre": "Action-Adventure",
-  "price": 110.99,
+  "price": 87.99,
   "releaseDate": "1986-02-21"
 }
 
