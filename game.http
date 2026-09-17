@@ -8,9 +8,9 @@ POST http://localhost:5159/api/games
 Content-Type: application/json
 
 {
-  "name": "The Legend of Zelda",
+  "name": "AAA",
   "genre": "Action-Adventure",
-  "price": 59.99,
+  "price": 110.99,
   "releaseDate": "1986-02-21"
 }
 

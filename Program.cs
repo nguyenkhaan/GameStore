@@ -1,15 +1,26 @@
 //VSCode Extensions: C# dev kit, C# Dev Tools
+using GameStore.Data;
 using GameStore.Dtos;
 using GameStore.Endpoints;
+using GameStore.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
+//Register the validation service to validate input for our API endpoints
+//We use builder because it is an variable that store application configuration for services, environments
+
+builder.Services.AddValidation();
+var databaseConnection = builder.Configuration["ConnectionStrings:DefaultConnection"]; //loading .env from appsettings.json. You can put the .env here and don't commit it to github
+builder.Services.AddNpgsql<GameStoreContext>(databaseConnection); //Connect to the database with connection string
+Console.WriteLine("Database has been connected");
+
 var app = builder.Build();
 
 //Now, you can call the extension method with the instance of app class
 app.MapGamesEndpoints();
+//You can install Nuget packages here: https://www.nuget.org/. In this page, you can search package and choose the suitable version for your .NET
 
 app.Run();
 
