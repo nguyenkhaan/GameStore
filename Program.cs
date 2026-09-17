@@ -22,6 +22,11 @@ var app = builder.Build();
 app.MapGamesEndpoints();
 //You can install Nuget packages here: https://www.nuget.org/. In this page, you can search package and choose the suitable version for your .NET
 
+//Migrate Automatically 
+app.MigrateDb(); //Calling the migration function -> This will run migrate automatically when the application start
+
+
+
 app.Run();
 
 
@@ -38,3 +43,11 @@ a Location to the response's header, tell the client where they can get this new
 - Results.UnAuthorized();
 - Results.Forbid();
 */ 
+
+/*
+Create database migration: 
+Dontet install: dotnet tool install --local dotnet-ef --version 10.0.11 (Nuget package)
+Dotnet design package: dotnet add package Microsoft.EntityFrameworkCore.Design --version 10.0.10
+- Create migration command: dotnet ef migrations add InitialCreate --output-dir Data/Migrations
+- Apply migration command: dotnet database update -> Yeah it's too easy
+*/
