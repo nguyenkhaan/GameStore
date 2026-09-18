@@ -1,7 +1,7 @@
 GET http://localhost:5159/api/games
 
 ###
-GET http://localhost:5159/api/games/game01/maybe
+GET http://localhost:5159/api/games/id01
 
 ###
 POST http://localhost:5159/api/games
@@ -9,13 +9,13 @@ Content-Type: application/json
 
 {
   "name": "AAA",
-  "genre": "Action-Adventure",
+  "genre": "id02",
   "price": 87.99,
   "releaseDate": "1986-02-21"
 }
 
 ###
-PUT http://localhost:5159/api/games/game03
+PUT http://localhost:5159/api/games/23fcff0d-83d0-4782-84a2-a0f3288e12e4
 Content-Type: application/json
 
 {
@@ -23,4 +23,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:5159/api/games/game02
+DELETE http://localhost:5159/api/games/id03

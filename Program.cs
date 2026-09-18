@@ -20,6 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<GameService>(); //Everytime a GameService is initialize, the c# will handle it for you
 
 var databaseConnection = builder.Configuration["ConnectionStrings:DefaultConnection"]; //loading .env from appsettings.json. You can put the .env here and don't commit it to github
+//Dependency Injection for database
 builder.Services.AddNpgsql<GameStoreContext>(
     databaseConnection,
     //Pass by keywords to function parameters

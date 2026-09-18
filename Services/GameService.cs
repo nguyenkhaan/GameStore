@@ -1,5 +1,7 @@
+using GameStore.Data;
 using GameStore.Dtos;
 using GameStore.Exceptions;
+using GameStore.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace GameStore.Services;
@@ -11,45 +13,54 @@ public class GameService
         new("game02", "Final Fantasy Report", "Fantasy", 12.99M, new(2010,10,10)),
         new ("game03", "Kamen Rider BattrideWar Sousei" , "RGB" , 19.99M, new(2012,12,12))
     ];
-    public List<GameDto> GetGames()
+    private readonly GameStoreContext _dbContext;
+    public GameService(GameStoreContext dbContext)
     {
-        return games;
+        _dbContext = dbContext;
     }
-    public GameDto? GetGameDetail(string id)
+    public List<Game> GetGames()
     {
-        return games.Find(game => game.ID == id);
+        return _dbContext.Games.ToList();
     }
-    public GameDto CreateGame(CreateGameDto data)
+    public Game? GetGameDetail(string id)
+    {
+        return _dbContext.Games.FirstOrDefault(game => game.Id == id);
+    }
+    public Game CreateGame(CreateGameDto data)
     {
         Random rd = new();
         string id = $"game-{rd.Next(1, 100)}";
-        var game = new GameDto
+        var game = new Game
         {
-            ID = id,
+            Id = Guid.NewGuid().ToString(),
             Name = data.Name,
-            Genre = data.Genre,
+            GenreId = data.Genre,
             Price = data.Price,
             ReleaseDate = data.ReleaseDate
         };
-        games.Add(game);
+        _dbContext.Games.Add(game);
+        _dbContext.SaveChanges();
         return game;
     }
-    public GameDto UpdateGame(string id, UpdateGameDto data)
+    public Game UpdateGame(string id, UpdateGameDto data)
     {
-        var game = games.Find((game) => game.ID == id);
+        var game = _dbContext.Games.FirstOrDefault(game => game.Id == id);
         if (game is null) throw new NotFoundException("Game not found");
         if (data.Name is not null) game.Name = data.Name;
-        if (data.Genre is not null) game.Genre = data.Genre; //getter and setter will handle this 
+        if (data.Genre is not null) game.GenreId = data.Genre; //getter and setter will handle this 
         if (data.ReleaseDate is not null) game.ReleaseDate = data.ReleaseDate.Value;
         if (data.Price is not null) game.Price = data.Price.Value;
+
+        _dbContext.SaveChanges();
         return game;
     }
     public string DeleteGame(string id)
     {
-        var game = games.Find(game => game.ID == id);
+        var game = _dbContext.Games.FirstOrDefault(game => game.Id == id);
         if (game is null)
             throw new NotFoundException("Game not found");
-        games.Remove(game);
+        _dbContext.Games.Remove(game);
+        _dbContext.SaveChanges();
         return "Delete successfully";
     }
 }

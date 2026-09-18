@@ -23,7 +23,7 @@ public class GameController: ControllerBase
         var result = _gameService.GetGames();
         return Ok(result);
     }
-    [HttpGet("{id}/maybe")]
+    [HttpGet("{id}")]
     public IActionResult GetGameDetail(string id)
     {
         var result = _gameService.GetGameDetail(id);
@@ -32,7 +32,7 @@ public class GameController: ControllerBase
     public IActionResult CreateGame(CreateGameDto data)
     {
         var result = _gameService.CreateGame(data);
-        return Created($"/api/games/{result.ID}", result);
+        return Created($"/api/games/{result.Id}", result);
     }
     [HttpPut("{id}")]
     public IActionResult UpdateGame(string id, UpdateGameDto data)
